@@ -1,16 +1,10 @@
 package com.example.aplication;
 
-import com.example.tabuleiro.Position;
+import com.example.tabuleiro.Board;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args ){
+public class App {
+    public static void main(String[] args) {
 
-        Position pos = new Position(3, 5);
-        System.out.println(pos);
+        Board board = new Board(8, 8);
     }
 }
