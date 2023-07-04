@@ -1,6 +1,8 @@
 package com.example.xadrez;
 
 import com.example.tabuleiro.Board;
+import com.example.tabuleiro.Piece;
+import com.example.tabuleiro.Position;
 import com.example.xadrez.pieces.King;
 import com.example.xadrez.pieces.Rook;
 
@@ -23,12 +25,33 @@ public class ChessMatch {
         return mat;
     }
 
+    public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
+        Position source = sourcePosition.toPosition();
+        Position target = targetPosition.toPosition();
+        validateSourcePosition(source);
+        Piece capturedPiece = makeMove(source, target);
+        return (ChessPiece) capturedPiece;
+    }
+
+    private Piece makeMove(Position source, Position target) {
+        Piece p = board.removePiece(source);
+        Piece capturedPiece = board.removePiece(target);
+        board.placePiece(p, target);
+        return capturedPiece;
+    }
+
+    private void validateSourcePosition(Position position) {
+        if (!board.thereIsAPiece(position)) {
+            throw new ChessException("Não há nenhuma peça na posição selecionada");
+        }
+    }
+
     private void placeNewPiece(char column, int row, ChessPiece piece) {
         board.placePiece(piece, new ChessPosition(column, row).toPosition());
     }
 
     private void InitialSetup() {
-		placeNewPiece('c', 1, new Rook(board, Color.WHITE));
+        placeNewPiece('c', 1, new Rook(board, Color.WHITE));
         placeNewPiece('c', 2, new Rook(board, Color.WHITE));
         placeNewPiece('d', 2, new Rook(board, Color.WHITE));
         placeNewPiece('e', 2, new Rook(board, Color.WHITE));
@@ -41,5 +64,5 @@ public class ChessMatch {
         placeNewPiece('e', 7, new Rook(board, Color.BLACK));
         placeNewPiece('e', 8, new Rook(board, Color.BLACK));
         placeNewPiece('d', 8, new King(board, Color.BLACK));
-	}
+    }
 }
