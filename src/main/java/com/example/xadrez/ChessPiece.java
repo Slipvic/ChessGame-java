@@ -2,6 +2,7 @@ package com.example.xadrez;
 
 import com.example.tabuleiro.Board;
 import com.example.tabuleiro.Piece;
+import com.example.tabuleiro.Position;
 
 public abstract class ChessPiece extends Piece {
 
@@ -15,5 +16,11 @@ public abstract class ChessPiece extends Piece {
     public Color getColor() {
         return color;
     }
+
+    protected boolean isThereOpponentPiece(Position position) {
+        ChessPiece p = (ChessPiece) getBoard().piece(position);
+        return p != null && p.getColor() != color;
+    }
+     
 
 }
