@@ -18,7 +18,7 @@ public class App {
 		List<ChessPiece> captured = new ArrayList<>();
 
 		while (!chessMatch.getCheckMate()) {
-			 try {
+			try {
 				UI.cleanScreen();
 				UI.printMatch(chessMatch, captured);
 				System.out.println();
@@ -38,13 +38,18 @@ public class App {
 				if (capturedPiece != null) {
 					captured.add(capturedPiece);
 				}
-			 } catch (ChessException e) {
+				if (chessMatch.getPromoted() != null) {
+					System.out.print("Promoção de classe (B/N/R/Q): ");
+					String type = sc.nextLine();
+					chessMatch.replacePromotedPiece(type.toUpperCase());
+				}
+			} catch (ChessException e) {
 				System.out.println(e.getMessage());
 				sc.nextLine();
 			} catch (InputMismatchException e) {
 				System.out.println(e.getMessage());
 				sc.nextLine();
-			} 
+			}
 		}
 		UI.cleanScreen();
 		UI.printMatch(chessMatch, captured);
