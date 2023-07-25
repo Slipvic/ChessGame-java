@@ -40,8 +40,11 @@ public class App {
 				}
 				if (chessMatch.getPromoted() != null) {
 					System.out.print("Promoção de classe (B/N/R/Q): ");
-					String type = sc.nextLine();
-					chessMatch.replacePromotedPiece(type.toUpperCase());
+					String type = sc.nextLine().toUpperCase();
+					while (!type.equals("B") && !type.equals("N") && !type.equals("R") & !type.equals("Q")) {
+						System.out.print("valor invalido, digite um dos valores seguintes: (B/N/R/Q): ");
+						type = sc.nextLine().toUpperCase();
+					}
 				}
 			} catch (ChessException e) {
 				System.out.println(e.getMessage());
